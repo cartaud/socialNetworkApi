@@ -1,8 +1,14 @@
-const { User } = require('../models/User');
+const User = require('../models/User');
 
 // * `PUT` to update a user by its `_id`
 
 // * `DELETE` to remove user by its `_id`
+
+// `/api/users/:userId/friends/:friendId`**
+
+// * `POST` to add a new friend to a user's friend list
+
+// * `DELETE` to remove a friend from a user's friend list
 
 module.exports = {
     getUsers(req, res) {
@@ -13,6 +19,7 @@ module.exports = {
     getSingleUser(req, res) {
         User.findOne({_id: req.params.userId})
         .select('-__v')
+        .populate('thoughts', 'friends')
         .then((user) => 
             !user
               ? res.status(404).json({message: 'No user with that ID'})
@@ -20,12 +27,12 @@ module.exports = {
         )
         .catch((err) => res.status(500).json(err))
     },
-    // // example data
+    createUser(req, res) {
+        // // example data
     // {
     //   "username": "lernantino",
     //   "email": "lernantino@gmail.com"
     // }
-    createUser(req, res) {
         User.create(req.body)
           .then((dbUserData) => res.json(dbUserData))   
           .catch((err) => res.status(500).json(err))
@@ -33,5 +40,11 @@ module.exports = {
     // updateUser(req, res) {
     //     User.update({_id: req.params.userId})
     // },
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            {}
+        )
+    }
+
     
 }
