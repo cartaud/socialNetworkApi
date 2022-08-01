@@ -63,9 +63,11 @@ const reactions = [
   'Reply: The side effects of in app purchases on digital marketplaces',
 ]
 
+const getRandomIndex = (arr) => Math.floor(Math.random() * arr.length)
+
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-const getRandomUsername = () => getRandArrItem(usernames);
+const getRandomUsername = (index) => usernames[index];
 
 const getRandomThought = (int) => {
     let results = []
@@ -105,4 +107,4 @@ const getRandomReactions = (int) => {
     return results
 }
 
-module.exports = { getRandomUsername, getRandomThought }
+module.exports = { getRandomUsername, getRandomThought, getRandomIndex }

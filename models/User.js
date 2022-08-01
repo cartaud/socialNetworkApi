@@ -17,7 +17,12 @@ const userSchema = new Schema(
             type: String,
             unique: true,
             required: true,
-            validate: [validateEmail, "Please enter a valid email"]
+            validate: {
+                validator: function(v) {
+                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)
+                },
+                message: "Please enter a valid email"
+            },
         },
         thoughts: [ //Array of `_id` values referencing the `Thought` model
             {
@@ -34,6 +39,7 @@ const userSchema = new Schema(
         toJSON: {
             virtuals: true,
         },
+        id: false,
     }
 );
 

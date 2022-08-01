@@ -18,8 +18,20 @@ const thoughtSchema = new Schema(
             required: true
         },
         reactions: [Reaction], //Array of nested documents created with the `reactionSchema`
+    },
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        id: false,
     }
 )
+
+thoughtSchema
+  .virtual('reactionCount')
+  .get(function() {
+    return this.reactions.length
+})
 
 const Thought = model('thought', thoughtSchema);
 

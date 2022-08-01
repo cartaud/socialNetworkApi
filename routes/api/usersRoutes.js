@@ -19,10 +19,7 @@ router
  .put(updateUser)
  .delete(deleteUser)
 
- // /api/users/:userId/friends
-router.route('/:userId/friend').post(addUserFriend)
-
  // /api/users/:userId/friends/:friendId
-router.route(':userId/friend/:friendId').delete(removeUserFriend)
+ router.route('/:userId/friends/:friendId').post(addUserFriend).delete(removeUserFriend)
 
 module.exports = router
